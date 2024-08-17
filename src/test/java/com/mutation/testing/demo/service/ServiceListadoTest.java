@@ -17,7 +17,7 @@ class ServiceListadoTest {
 
     @BeforeEach
     void setUp() {
-        DataSource.getInstance("/home/gmarsico/Documentos/mio/mt/demo/src/test/resources/test.csv");
+        DataSource.getInstance("src/test/resources/test.csv");
         this.serviceListado = new ServiceListado();
     }
 
