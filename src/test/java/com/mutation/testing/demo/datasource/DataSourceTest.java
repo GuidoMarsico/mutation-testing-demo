@@ -8,7 +8,7 @@ class DataSourceTest {
 
         @Test
         void testElDsTieneQueLevantarLosDatosDePrueba(){
-            DataSource ds = new DataSource("/home/gmarsico/Documentos/mio/mt/demo/src/test/resources/test.csv");
+            DataSource ds = new DataSource("src/test/resources/test.csv");
             Assertions.assertFalse(ds.publicacionList.isEmpty());
         }
 
