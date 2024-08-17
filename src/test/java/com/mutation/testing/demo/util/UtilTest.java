@@ -15,7 +15,7 @@ class UtilTest {
 
     @Test
     void testTieneQueLevantarDatosDelCSVDeEjemplo() throws FileNotFoundException {
-        List<List<String>> record =  Util.read("/home/gmarsico/Documentos/mio/mt/demo/src/test/resources/test.csv");
+        List<List<String>> record =  Util.read("src/test/resources/test.csv");
         Assertions.assertFalse(record.isEmpty());
     }
 
