@@ -3,6 +3,7 @@ package com.mutation.testing.demo.controllers;
 import com.mutation.testing.demo.config.ConfigApp;
 import com.mutation.testing.demo.datasource.DataSource;
 import com.mutation.testing.demo.enums.OrderBy;
+import com.mutation.testing.demo.enums.TipoPublicacion;
 import com.mutation.testing.demo.response.ListadoResponse;
 import com.mutation.testing.demo.service.ServiceListado;
 import org.junit.jupiter.api.Assertions;
@@ -34,7 +35,7 @@ class ApiTest {
     @Test
     void testConsultarListadoSimpleDevuelveTodo() {
         Api api = new Api(serviceListado);
-        ListadoResponse response = api.getListado(null,null, OrderBy.DEFAULT);
+        ListadoResponse response = api.getListado(null,null, OrderBy.DEFAULT, TipoPublicacion.CLASIFICADO);
         Assertions.assertEquals(7,response.count());
     }
 
@@ -42,7 +43,7 @@ class ApiTest {
     void testConsultarFiltrandoLasPublicaciones(){
         Api api = new Api(serviceListado);
         List<Integer> publicacionesExclude = List.of(1,2,3);
-        ListadoResponse response = api.getListado(publicacionesExclude,null, OrderBy.DEFAULT);
+        ListadoResponse response = api.getListado(publicacionesExclude,null, OrderBy.DEFAULT,TipoPublicacion.CLASIFICADO);
         Assertions.assertEquals(4,response.count());
         Assertions.assertTrue(response.cards().stream().noneMatch(c-> publicacionesExclude.contains(c.id()) ));
     }
@@ -52,7 +53,7 @@ class ApiTest {
     void testConsultarFiltrandoAnunciantes(){
         Api api = new Api(serviceListado);
         List<String> anunciantesExclude = List.of("MagnetoProp");
-        ListadoResponse response = api.getListado(null,anunciantesExclude, OrderBy.DEFAULT);
+        ListadoResponse response = api.getListado(null,anunciantesExclude, OrderBy.DEFAULT,TipoPublicacion.CLASIFICADO);
         Assertions.assertEquals(2,response.count());
         Assertions.assertTrue(response.cards().stream().noneMatch(c-> anunciantesExclude.contains(c.anunciante())));
     }
@@ -60,21 +61,21 @@ class ApiTest {
     @Test
     void testConsultarOrdenandoPorPrecio(){
         Api api = new Api(serviceListado);
-        ListadoResponse response = api.getListado(null,null, OrderBy.PRECIO);
+        ListadoResponse response = api.getListado(null,null, OrderBy.PRECIO,TipoPublicacion.CLASIFICADO);
         Assertions.assertEquals(4,response.cards().get(0).id());
     }
 
     @Test
     void testConsultarOrdenandoPorNivel(){
         Api api = new Api(serviceListado);
-        ListadoResponse response = api.getListado(null,null, OrderBy.NIVEL);
+        ListadoResponse response = api.getListado(null,null, OrderBy.NIVEL,TipoPublicacion.CLASIFICADO);
         Assertions.assertEquals(7,response.cards().get(0).id());
     }
 
     @Test
     void testConsultarOrdenandoPorXfactor(){
         Api api = new Api(serviceListado);
-        ListadoResponse response = api.getListado(null,null, OrderBy.XFACTOR);
+        ListadoResponse response = api.getListado(null,null, OrderBy.XFACTOR,TipoPublicacion.CLASIFICADO);
         Assertions.assertEquals(5,response.cards().get(0).id());
     }
 
