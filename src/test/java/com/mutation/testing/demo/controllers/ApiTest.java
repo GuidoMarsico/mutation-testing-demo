@@ -52,6 +52,14 @@ class ApiTest {
     }
 
     @Test
+    void testConsultarListadoPorLosEmprendimientosDevuelve1() {
+        Api api = new Api(serviceListado);
+        ListadoResponse response = api.getListado(null,null, OrderBy.DEFAULT, TipoPublicacion.EMPRENDIMIENTO);
+        Assertions.assertEquals(1,response.count());
+        Assertions.assertEquals(2,response.cards().get(0).id());
+    }
+
+    @Test
     void testConsultarFiltrandoLasPublicaciones(){
         Api api = new Api(serviceListado);
         List<Integer> publicacionesExclude = List.of(1,2,3);
@@ -89,6 +97,21 @@ class ApiTest {
         Api api = new Api(serviceListado);
         ListadoResponse response = api.getListado(null,null, OrderBy.XFACTOR,TipoPublicacion.CLASIFICADO);
         Assertions.assertEquals(1,response.cards().get(0).id());
+    }
+
+    @Test
+    void testConsultarOrdenandoPorUnidadPidiendoClasificados(){
+        Api api = new Api(serviceListado);
+        ListadoResponse response = api.getListado(null,null, OrderBy.CANTUNIDADES,TipoPublicacion.CLASIFICADO);
+        Assertions.assertEquals(1,response.cards().get(0).id());
+    }
+
+
+    @Test
+    void testConsultarOrdenandoPorUnidadPidiendoEmprendimientos(){
+        Api api = new Api(serviceListado);
+        ListadoResponse response = api.getListado(null,null, OrderBy.CANTUNIDADES,TipoPublicacion.EMPRENDIMIENTO);
+        Assertions.assertEquals(2,response.cards().get(0).id());
     }
 
 }
