@@ -57,6 +57,16 @@ Se tiene que agregar al Objeto de Card un atributo TipoPublicacion (Valores : cl
 
 2) Se debe agregar al objeto Card un atributo que sea la lista de Cards de sus unidades , si la Card es de un empredimiento y debido a eso ya no se tienen que devolver card de unidades, por que van estar incorporadas en las de su emprendimiento
 
-3) Agregar un ordenamiento nuevo por cantidad de Unidades 
+3) Agregar un ordenamiento nuevo por cantidad de Unidades
 
+
+## Mutation Testing
+
+Buenas Ahora se pide aplicar Mutation testing , para ver que tan buenos son nuestros test y que tan solido es nuestro codigo 
+
+Links 
+ - https://pitest.org/
+ - Para Configurar con JUnit5 : https://github.com/pitest/pitest-junit5-plugin
+
+Configurar el proyecto y empezar a matar mutantes !
 
