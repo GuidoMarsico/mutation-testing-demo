@@ -1,7 +1,9 @@
 package com.mutation.testing.demo.service;
 
+import com.mutation.testing.demo.controllers.SearchParams;
 import com.mutation.testing.demo.datasource.DataSource;
 import com.mutation.testing.demo.enums.OrderBy;
+import com.mutation.testing.demo.enums.TipoPublicacion;
 import com.mutation.testing.demo.response.Card;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,33 +19,43 @@ class ServiceListadoTest {
 
     @BeforeEach
     void setUp() {
-        DataSource.getInstance("/home/gmarsico/Documentos/mio/mt/demo/src/test/resources/test.csv");
+        DataSource.getInstance("src/test/resources/test.csv");
         this.serviceListado = new ServiceListado();
     }
 
     @Test
-    void testDebeDevolverListadosDeCards(){
-        Assertions.assertFalse(serviceListado.armarListado(Optional.empty(),Optional.empty(), OrderBy.DEFAULT).isEmpty());
+    void testDebeDevolverListadosDeClasificados(){
+        SearchParams searchParams = new SearchParams(Optional.empty(),Optional.empty(), OrderBy.DEFAULT, TipoPublicacion.CLASIFICADO);
+        Assertions.assertEquals(3,serviceListado.armarListado(searchParams).size());
+    }
+
+    @Test
+    void testDebeDevolverListadosDeEmprendimientos(){
+        SearchParams searchParams = new SearchParams(Optional.empty(),Optional.empty(), OrderBy.DEFAULT, TipoPublicacion.EMPRENDIMIENTO);
+        Assertions.assertEquals(4,serviceListado.armarListado(searchParams).size());
     }
 
 
     @Test
     void testDebeDevolverListadoExcluyendoCiertasPublicaciones(){
         List<Integer> idPublicacionesExclude = List.of(1,3);
-        List<Card> listado = serviceListado.armarListado(Optional.of(idPublicacionesExclude),Optional.empty(),OrderBy.DEFAULT);
+        SearchParams searchParams = new SearchParams(Optional.of(idPublicacionesExclude),Optional.empty(),OrderBy.DEFAULT,null);
+        List<Card> listado = serviceListado.armarListado(searchParams);
         Assertions.assertTrue(listado.stream().noneMatch(card -> idPublicacionesExclude.contains(card.id())));
     }
 
     @Test
     void testDevolverListadoExcluyendoCiertosAnunciantes(){
         List<String> anunciantes = List.of("HermandadProp");
-        List<Card> listado = serviceListado.armarListado(Optional.empty(),Optional.of(anunciantes),OrderBy.DEFAULT);
+        SearchParams searchParams = new SearchParams(Optional.empty(),Optional.of(anunciantes),OrderBy.DEFAULT,null);
+        List<Card> listado = serviceListado.armarListado(searchParams);
         Assertions.assertTrue(listado.stream().noneMatch(card -> anunciantes.contains(card.anunciante())));
     }
 
     @Test
     void testDevolverListadoOrdenadoPorPrecio(){
-        List<Card> listado =  serviceListado.armarListado(Optional.empty(),Optional.empty(), OrderBy.PRECIO);
+        SearchParams searchParams = new SearchParams(Optional.empty(),Optional.empty(), OrderBy.PRECIO,null);
+        List<Card> listado =  serviceListado.armarListado(searchParams);
         Card primero = listado.get(0);
         Assertions.assertEquals(4,primero.id());
     }
@@ -51,14 +63,16 @@ class ServiceListadoTest {
 
     @Test
     void testDevolverListadoOrdenadoPorNivel(){
-        List<Card> listado =  serviceListado.armarListado(Optional.empty(),Optional.empty(), OrderBy.NIVEL);
+        SearchParams searchParams = new SearchParams(Optional.empty(),Optional.empty(), OrderBy.NIVEL,null);
+        List<Card> listado =  serviceListado.armarListado(searchParams);
         Card primero = listado.get(0);
         Assertions.assertEquals(7,primero.id());
     }
 
     @Test
     void testDevolverListadoOrdenadoPorXFactor(){
-        List<Card> listado =  serviceListado.armarListado(Optional.empty(),Optional.empty(), OrderBy.XFACTOR);
+        SearchParams searchParams = new SearchParams(Optional.empty(),Optional.empty(), OrderBy.XFACTOR,null);
+        List<Card> listado =  serviceListado.armarListado(searchParams);
         Card primero = listado.get(0);
         Assertions.assertEquals(5,primero.id());
     }

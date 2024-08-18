@@ -33,10 +33,10 @@ class ApiTest {
     }
 
     @Test
-    void testConsultarListadoSimpleDevuelveTodo() {
+    void testConsultarListadoSimpleDevuelveTodosClasificados() {
         Api api = new Api(serviceListado);
         ListadoResponse response = api.getListado(null,null, OrderBy.DEFAULT, TipoPublicacion.CLASIFICADO);
-        Assertions.assertEquals(7,response.count());
+        Assertions.assertEquals(3,response.count());
     }
 
     @Test

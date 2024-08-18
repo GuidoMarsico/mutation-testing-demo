@@ -32,8 +32,8 @@ public class Api {
 
         Optional<List<Integer>> pubExclude = Optional.ofNullable(publicacionesExclude);
         Optional<List<String>> aunExclude = Optional.ofNullable(anunciantesExclude);
-
-        List<Card> cards = this.serviceListado.armarListado(pubExclude,aunExclude,order);
+        SearchParams searchParams = new SearchParams(pubExclude,aunExclude,order,tipoPublicacion);
+        List<Card> cards = this.serviceListado.armarListado(searchParams);
 
         return new ListadoResponse(cards.size(),cards, order);
     }
