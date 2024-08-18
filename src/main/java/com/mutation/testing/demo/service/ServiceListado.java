@@ -29,9 +29,9 @@ public class ServiceListado {
     }
 
     public List<Card> armarListado(SearchParams searchParams){
-            List<Card> listado = factory.getListado(searchParams.tipoPublicacion()).getListado(ds);
+            List<Card> listado = factory.getListado(searchParams.tipoPublicacion()).
+                    getListado(ds).stream().filter(card -> publicationPassFilter(searchParams.publicacionesToExclude(),searchParams.anunciantesToExclude(),card)).toList();
 
-            listado = listado.stream().filter(card -> publicationPassFilter(searchParams.publicacionesToExclude(),searchParams.anunciantesToExclude(),card)).toList();
             if(searchParams.order().equals(OrderBy.PRECIO))
                 listado= listado.stream().sorted(new PriceComparator()).collect(Collectors.toList());
             if(searchParams.order().equals(OrderBy.NIVEL))
