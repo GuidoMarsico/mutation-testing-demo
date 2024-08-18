@@ -17,7 +17,7 @@ public class ListadoFactory {
         this.emprendimiento = emprendimiento;
     }
 
-    Listado getListado(TipoPublicacion tipoPublicacion){
+    public Listado getListado(TipoPublicacion tipoPublicacion){
         return tipoPublicacion.equals(TipoPublicacion.CLASIFICADO) ? clasificado : emprendimiento;
     }
 

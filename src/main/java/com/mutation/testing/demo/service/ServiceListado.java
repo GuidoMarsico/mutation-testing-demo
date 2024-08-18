@@ -7,9 +7,11 @@ import com.mutation.testing.demo.controllers.SearchParams;
 import com.mutation.testing.demo.datasource.DataSource;
 import com.mutation.testing.demo.enums.OrderBy;
 import com.mutation.testing.demo.enums.TipoPublicacion;
+import com.mutation.testing.demo.listado.ListadoFactory;
 import com.mutation.testing.demo.model.Publicacion;
 import com.mutation.testing.demo.response.Card;
 import com.mutation.testing.demo.util.Util;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -18,39 +20,18 @@ import java.util.stream.Collectors;
 public class ServiceListado {
 
     DataSource ds;
+    ListadoFactory factory;
 
-
-    public ServiceListado() {
+    @Autowired
+    public ServiceListado(ListadoFactory factory) {
+        this.factory = factory;
         this.ds = DataSource.getInstance("");
     }
 
     public List<Card> armarListado(SearchParams searchParams){
-        List<Card> listado = new ArrayList<>();
+            List<Card> listado = factory.getListado(searchParams.tipoPublicacion()).getListado(ds);
 
-        for(Publicacion p : ds.publicacionList) {
-            if (publicationPassFilter(searchParams.publicacionesToExclude(), searchParams.anunciantesToExclude(), p)) {
-
-                String tipoPropiedad = Util.getTipoPropiedadById(p.idTipoDePropiedad()).nombre;
-                String nivel = Util.getNivelById(p.idNivel()).nombre;
-                String xFactor = Util.getXfactor(p.xFactor()).xFactor;
-
-                if(searchParams.tipoPublicacion().equals(TipoPublicacion.CLASIFICADO)){
-                    if(List.of(1,2).contains(p.idTipoDePropiedad()) & p.idPublicacionPadre() == null)
-                        listado.add(new Card(p.id(), tipoPropiedad, p.anunciante(), p.ubicacion(), p.precio(), p.fechaPublicacion(), nivel, xFactor,"clasificado"));
-                }
-
-                if(searchParams.tipoPublicacion().equals(TipoPublicacion.EMPRENDIMIENTO)){
-                    if((p.idTipoDePropiedad().equals(10)) || (List.of(1,2).contains(p.idTipoDePropiedad()) & p.idPublicacionPadre() != null)){
-                        String tipoPublicacion = p.idTipoDePropiedad().equals(10) ? "emprendimiento" : "unidad";
-                        listado.add(new Card(p.id(), tipoPropiedad, p.anunciante(), p.ubicacion(), p.precio(), p.fechaPublicacion(), nivel, xFactor,tipoPublicacion));
-                    }
-
-                }
-
-            }
-        }
-
-
+            listado = listado.stream().filter(card -> publicationPassFilter(searchParams.publicacionesToExclude(),searchParams.anunciantesToExclude(),card)).toList();
             if(searchParams.order().equals(OrderBy.PRECIO))
                 listado= listado.stream().sorted(new PriceComparator()).collect(Collectors.toList());
             if(searchParams.order().equals(OrderBy.NIVEL))
@@ -61,13 +42,13 @@ public class ServiceListado {
         return listado;
     }
 
-    private  boolean publicationPassFilter(Optional<List<Integer>> publicacionesExclude, Optional<List<String>> anunciantesExclude, Publicacion p) {
+    private  boolean publicationPassFilter(Optional<List<Integer>> publicacionesExclude, Optional<List<String>> anunciantesExclude, Card card) {
         Boolean pass = Boolean.TRUE;
         if(publicacionesExclude.isPresent())
-            pass = pass & !publicacionesExclude.get().contains(p.id());
+            pass = pass & !publicacionesExclude.get().contains(card.id());
 
         if(anunciantesExclude.isPresent())
-            pass = pass & !anunciantesExclude.get().contains(p.anunciante());
+            pass = pass & !anunciantesExclude.get().contains(card.anunciante());
 
         return pass;
     }
