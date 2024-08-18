@@ -1,6 +1,7 @@
 package com.mutation.testing.demo.controllers;
 
 import com.mutation.testing.demo.enums.OrderBy;
+import com.mutation.testing.demo.enums.TipoPublicacion;
 import com.mutation.testing.demo.response.Card;
 import com.mutation.testing.demo.response.ListadoResponse;
 import com.mutation.testing.demo.service.ServiceListado;
@@ -26,12 +27,13 @@ public class Api {
     @ResponseBody
     public ListadoResponse getListado(@RequestParam(required = false) List<Integer> publicacionesExclude,
                                       @RequestParam(required = false) List<String> anunciantesExclude,
-                                      @RequestParam(defaultValue = "DEFAULT") OrderBy order){
+                                      @RequestParam(defaultValue = "DEFAULT") OrderBy order,
+                                      @RequestParam(defaultValue = "CLASIFICADO") TipoPublicacion tipoPublicacion){
 
         Optional<List<Integer>> pubExclude = Optional.ofNullable(publicacionesExclude);
         Optional<List<String>> aunExclude = Optional.ofNullable(anunciantesExclude);
-
-        List<Card> cards = this.serviceListado.armarListado(pubExclude,aunExclude,order);
+        SearchParams searchParams = new SearchParams(pubExclude,aunExclude,order,tipoPublicacion);
+        List<Card> cards = this.serviceListado.armarListado(searchParams);
 
         return new ListadoResponse(cards.size(),cards, order);
     }

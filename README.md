@@ -36,3 +36,27 @@ Criterio Ordenamiento explicacion:
    localhost:http://localhost:8080/swagger-ui/index.html
 
 
+## Requerimiento
+
+A realizar en siguiente orden , aplicando TDD
+
+1)
+
+Incorporacion de Clasificados y Emprendimientos , ahora se quiere introducir el concepto de Clasificados y Emprendimientos (Que dentro tambien hay Unidades).
+
+Un clasificado es cuando es una publicacion del tipo de propiedad Casa o Departamento y no tenga publicacion padre.
+
+Un Emprendimiento es cuando es una publicacion del tipo Desarrollo o que sea del tipo Casa o Departamento y tenga publicacion padre.
+
+    Una Unidad es cuando es una publicacion del tipo  Casa o Departamento y tenga publicacion padre.
+
+Lo que se pide que el servicio tenga un nuevo parametro tipoPublicacion (Valores : Clasificado , Emprendimiento) siendo default Clasificado y que el listado devuelva en base a esto.
+
+Se tiene que agregar al Objeto de Card un atributo TipoPublicacion (Valores : clasificado , emprendimiento y unidad)
+
+
+2) Se debe agregar al objeto Card un atributo que sea la lista de Cards de sus unidades , si la Card es de un empredimiento y debido a eso ya no se tienen que devolver card de unidades, por que van estar incorporadas en las de su emprendimiento
+
+3) Agregar un ordenamiento nuevo por cantidad de Unidades 
+
+
