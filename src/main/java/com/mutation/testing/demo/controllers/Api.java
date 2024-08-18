@@ -28,7 +28,7 @@ public class Api {
     public ListadoResponse getListado(@RequestParam(required = false) List<Integer> publicacionesExclude,
                                       @RequestParam(required = false) List<String> anunciantesExclude,
                                       @RequestParam(defaultValue = "DEFAULT") OrderBy order,
-                                      @RequestParam(defaultValue = "clasificado") TipoPublicacion tipoPublicacion){
+                                      @RequestParam(defaultValue = "CLASIFICADO") TipoPublicacion tipoPublicacion){
 
         Optional<List<Integer>> pubExclude = Optional.ofNullable(publicacionesExclude);
         Optional<List<String>> aunExclude = Optional.ofNullable(anunciantesExclude);
