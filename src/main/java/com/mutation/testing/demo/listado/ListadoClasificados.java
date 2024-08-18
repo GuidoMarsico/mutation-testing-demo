@@ -20,10 +20,7 @@ public class ListadoClasificados implements Listado {
         List<Card> clasificados = new ArrayList<>();
         for(Publicacion p : ds.publicacionList){
             if(List.of(1,2).contains(p.idTipoDePropiedad()) & p.idPublicacionPadre() == null){
-                String tipoPropiedad = Util.getTipoPropiedadById(p.idTipoDePropiedad()).nombre;
-                String nivel = Util.getNivelById(p.idNivel()).nombre;
-                String xFactor = Util.getXfactor(p.xFactor()).xFactor;
-                clasificados.add(new Card(p.id(), tipoPropiedad, p.anunciante(), p.ubicacion(), p.precio(), p.fechaPublicacion(), nivel, xFactor,"clasificado"));
+                clasificados.add(armarCard(p,"clasificado"));
             }
         }
 
