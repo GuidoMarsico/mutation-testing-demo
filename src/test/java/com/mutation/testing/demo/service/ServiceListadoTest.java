@@ -43,11 +43,11 @@ class ServiceListadoTest {
     }
 
     @Test
-    void testDebeDevolverListadosDeEmprendimientos(){
+    void testDebeDevolverListadosDeEmprendimientosConSusUnidades(){
         SearchParams searchParams = new SearchParams(Optional.empty(),Optional.empty(), OrderBy.DEFAULT, TipoPublicacion.EMPRENDIMIENTO);
-        Assertions.assertEquals(4,serviceListado.armarListado(searchParams).size());
+        Assertions.assertEquals(1,serviceListado.armarListado(searchParams).size());
         Assertions.assertEquals(1,serviceListado.armarListado(searchParams).stream().filter(card -> card.tipoPublicacion().equals("emprendimiento")).count());
-        Assertions.assertEquals(3,serviceListado.armarListado(searchParams).stream().filter(card -> card.tipoPublicacion().equals("unidad")).count());
+        Assertions.assertEquals(3,serviceListado.armarListado(searchParams).stream().filter(card -> card.tipoPublicacion().equals("emprendimiento")).findFirst().get().unidad().size());
 
     }
 
