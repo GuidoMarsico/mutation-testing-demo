@@ -3,14 +3,13 @@ package com.mutation.testing.demo.listado;
 import com.mutation.testing.demo.datasource.DataSource;
 import com.mutation.testing.demo.model.Publicacion;
 import com.mutation.testing.demo.response.Card;
-import com.mutation.testing.demo.util.Util;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Component("clasificados")
+@Component("clasificado")
 public class ListadoClasificados implements Listado {
 
 
