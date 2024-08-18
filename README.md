@@ -64,7 +64,9 @@ Se tiene que agregar al Objeto de Card un atributo TipoPublicacion (Valores : cl
 
 Buenas Ahora se pide aplicar Mutation testing , para ver que tan buenos son nuestros test y que tan solido es nuestro codigo 
 
-ir a : https://pitest.org/
+Links 
+ - https://pitest.org/
+ - Para Configurar con JUnit5 : https://github.com/pitest/pitest-junit5-plugin
 
 Configurar el proyecto y empezar a matar mutantes !
 
