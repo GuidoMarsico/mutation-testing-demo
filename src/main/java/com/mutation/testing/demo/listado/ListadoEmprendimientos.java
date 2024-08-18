@@ -17,9 +17,12 @@ public class ListadoEmprendimientos implements Listado {
     public List<Card> getListado(DataSource ds) {
         List<Card> listado = new ArrayList<>();
         for(Publicacion p : ds.publicacionList){
-            if((p.idTipoDePropiedad().equals(10)) || (List.of(1,2).contains(p.idTipoDePropiedad()) & p.idPublicacionPadre() != null)){
-                String tipoPublicacion = p.idTipoDePropiedad().equals(10) ? "emprendimiento" : "unidad";
-                listado.add(armarCard(p,tipoPublicacion, Optional.empty()));
+            if(p.idTipoDePropiedad().equals(10)){
+                List<Card> unidades = new ArrayList<>();
+                unidades.add(null);
+                unidades.add(null);
+                unidades.add(null);
+                listado.add(armarCard(p,"emprendimiento", Optional.of(unidades)));
             }
         }
 
