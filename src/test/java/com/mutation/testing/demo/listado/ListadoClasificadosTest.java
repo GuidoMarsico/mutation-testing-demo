@@ -13,6 +13,7 @@ class ListadoClasificadosTest {
         DataSource ds = DataSource.getInstance("src/test/resources/test.csv");
         ListadoClasificados clasificados = new ListadoClasificados();
         Assertions.assertEquals(3,clasificados.getListado(ds).size());
+        Assertions.assertTrue(clasificados.getListado(ds).stream().allMatch(card -> card.unidad().isEmpty()));
     }
 
 }

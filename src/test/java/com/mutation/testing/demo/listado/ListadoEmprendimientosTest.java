@@ -12,6 +12,7 @@ class ListadoEmprendimientosTest {
     void testObtenerListadoDeLosEmprendimientos() {
         DataSource ds = DataSource.getInstance("src/test/resources/test.csv");
         ListadoEmprendimientos emprendimientos = new ListadoEmprendimientos();
-        Assertions.assertEquals(4,emprendimientos.getListado(ds).size());
+        Assertions.assertEquals(1,emprendimientos.getListado(ds).size());
+        Assertions.assertEquals(3,emprendimientos.getListado(ds).get(0).unidad().size());
     }
 }
