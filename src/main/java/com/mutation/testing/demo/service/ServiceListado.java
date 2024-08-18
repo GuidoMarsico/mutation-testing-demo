@@ -36,12 +36,15 @@ public class ServiceListado {
 
                 if(searchParams.tipoPublicacion().equals(TipoPublicacion.CLASIFICADO)){
                     if(List.of(1,2).contains(p.idTipoDePropiedad()) & p.idPublicacionPadre() == null)
-                        listado.add(new Card(p.id(), tipoPropiedad, p.anunciante(), p.ubicacion(), p.precio(), p.fechaPublicacion(), nivel, xFactor));
+                        listado.add(new Card(p.id(), tipoPropiedad, p.anunciante(), p.ubicacion(), p.precio(), p.fechaPublicacion(), nivel, xFactor,"clasificado"));
                 }
 
                 if(searchParams.tipoPublicacion().equals(TipoPublicacion.EMPRENDIMIENTO)){
-                    if((p.idTipoDePropiedad().equals(10)) || (List.of(1,2).contains(p.idTipoDePropiedad()) & p.idPublicacionPadre() != null))
-                        listado.add(new Card(p.id(), tipoPropiedad, p.anunciante(), p.ubicacion(), p.precio(), p.fechaPublicacion(), nivel, xFactor));
+                    if((p.idTipoDePropiedad().equals(10)) || (List.of(1,2).contains(p.idTipoDePropiedad()) & p.idPublicacionPadre() != null)){
+                        String tipoPublicacion = p.idTipoDePropiedad().equals(10) ? "emprendimiento" : "unidad";
+                        listado.add(new Card(p.id(), tipoPropiedad, p.anunciante(), p.ubicacion(), p.precio(), p.fechaPublicacion(), nivel, xFactor,tipoPublicacion));
+                    }
+
                 }
 
             }
