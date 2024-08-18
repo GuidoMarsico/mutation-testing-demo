@@ -120,7 +120,7 @@ class ServiceListadoTest {
 
         SearchParams searchParams = new SearchParams(Optional.empty(),Optional.empty(), OrderBy.CANTUNIDADES,TipoPublicacion.EMPRENDIMIENTO);
 
-        List<Card> listadoOrdenado =  serviceListado.armarListado(searchParams);
+        List<Card> listadoOrdenado =  serviceOrderUnidad.armarListado(searchParams);
         Card primero = listadoOrdenado.get(0);
         Assertions.assertEquals(10,primero.id());
     }

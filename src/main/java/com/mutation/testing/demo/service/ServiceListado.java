@@ -2,6 +2,7 @@ package com.mutation.testing.demo.service;
 
 import com.mutation.testing.demo.comparator.NivelComparator;
 import com.mutation.testing.demo.comparator.PriceComparator;
+import com.mutation.testing.demo.comparator.UnidadesComparator;
 import com.mutation.testing.demo.comparator.XFactorComparator;
 import com.mutation.testing.demo.controllers.SearchParams;
 import com.mutation.testing.demo.datasource.DataSource;
@@ -40,6 +41,8 @@ public class ServiceListado {
                 listado= listado.stream().sorted(new NivelComparator()).collect(Collectors.toList());
             if(searchParams.order().equals(OrderBy.XFACTOR))
                 listado = listado.stream().sorted(new XFactorComparator()).collect(Collectors.toList());
+            if(searchParams.order().equals(OrderBy.CANTUNIDADES))
+                listado = listado.stream().sorted(new UnidadesComparator()).collect(Collectors.toList());
 
         return listado;
     }
