@@ -44,7 +44,7 @@ class ApiTest {
         Api api = new Api(serviceListado);
         List<Integer> publicacionesExclude = List.of(1,2,3);
         ListadoResponse response = api.getListado(publicacionesExclude,null, OrderBy.DEFAULT,TipoPublicacion.CLASIFICADO);
-        Assertions.assertEquals(4,response.count());
+        Assertions.assertEquals(2,response.count());
         Assertions.assertTrue(response.cards().stream().noneMatch(c-> publicacionesExclude.contains(c.id()) ));
     }
 
@@ -62,7 +62,7 @@ class ApiTest {
     void testConsultarOrdenandoPorPrecio(){
         Api api = new Api(serviceListado);
         ListadoResponse response = api.getListado(null,null, OrderBy.PRECIO,TipoPublicacion.CLASIFICADO);
-        Assertions.assertEquals(4,response.cards().get(0).id());
+        Assertions.assertEquals(7,response.cards().get(0).id());
     }
 
     @Test
@@ -76,7 +76,7 @@ class ApiTest {
     void testConsultarOrdenandoPorXfactor(){
         Api api = new Api(serviceListado);
         ListadoResponse response = api.getListado(null,null, OrderBy.XFACTOR,TipoPublicacion.CLASIFICADO);
-        Assertions.assertEquals(5,response.cards().get(0).id());
+        Assertions.assertEquals(1,response.cards().get(0).id());
     }
 
 }

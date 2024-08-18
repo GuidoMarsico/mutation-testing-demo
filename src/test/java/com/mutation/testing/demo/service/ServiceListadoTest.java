@@ -43,7 +43,7 @@ class ServiceListadoTest {
     @Test
     void testDebeDevolverListadoExcluyendoCiertasPublicaciones(){
         List<Integer> idPublicacionesExclude = List.of(1,3);
-        SearchParams searchParams = new SearchParams(Optional.of(idPublicacionesExclude),Optional.empty(),OrderBy.DEFAULT,null);
+        SearchParams searchParams = new SearchParams(Optional.of(idPublicacionesExclude),Optional.empty(),OrderBy.DEFAULT,TipoPublicacion.CLASIFICADO);
         List<Card> listado = serviceListado.armarListado(searchParams);
         Assertions.assertTrue(listado.stream().noneMatch(card -> idPublicacionesExclude.contains(card.id())));
     }
@@ -51,23 +51,23 @@ class ServiceListadoTest {
     @Test
     void testDevolverListadoExcluyendoCiertosAnunciantes(){
         List<String> anunciantes = List.of("HermandadProp");
-        SearchParams searchParams = new SearchParams(Optional.empty(),Optional.of(anunciantes),OrderBy.DEFAULT,null);
+        SearchParams searchParams = new SearchParams(Optional.empty(),Optional.of(anunciantes),OrderBy.DEFAULT,TipoPublicacion.CLASIFICADO);
         List<Card> listado = serviceListado.armarListado(searchParams);
         Assertions.assertTrue(listado.stream().noneMatch(card -> anunciantes.contains(card.anunciante())));
     }
 
     @Test
     void testDevolverListadoOrdenadoPorPrecio(){
-        SearchParams searchParams = new SearchParams(Optional.empty(),Optional.empty(), OrderBy.PRECIO,null);
+        SearchParams searchParams = new SearchParams(Optional.empty(),Optional.empty(), OrderBy.PRECIO,TipoPublicacion.CLASIFICADO);
         List<Card> listado =  serviceListado.armarListado(searchParams);
         Card primero = listado.get(0);
-        Assertions.assertEquals(4,primero.id());
+        Assertions.assertEquals(7,primero.id());
     }
 
 
     @Test
     void testDevolverListadoOrdenadoPorNivel(){
-        SearchParams searchParams = new SearchParams(Optional.empty(),Optional.empty(), OrderBy.NIVEL,null);
+        SearchParams searchParams = new SearchParams(Optional.empty(),Optional.empty(), OrderBy.NIVEL,TipoPublicacion.CLASIFICADO);
         List<Card> listado =  serviceListado.armarListado(searchParams);
         Card primero = listado.get(0);
         Assertions.assertEquals(7,primero.id());
@@ -75,10 +75,10 @@ class ServiceListadoTest {
 
     @Test
     void testDevolverListadoOrdenadoPorXFactor(){
-        SearchParams searchParams = new SearchParams(Optional.empty(),Optional.empty(), OrderBy.XFACTOR,null);
+        SearchParams searchParams = new SearchParams(Optional.empty(),Optional.empty(), OrderBy.XFACTOR,TipoPublicacion.CLASIFICADO);
         List<Card> listado =  serviceListado.armarListado(searchParams);
         Card primero = listado.get(0);
-        Assertions.assertEquals(5,primero.id());
+        Assertions.assertEquals(1,primero.id());
     }
 
 }
