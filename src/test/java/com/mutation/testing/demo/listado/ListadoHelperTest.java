@@ -33,6 +33,7 @@ class ListadoHelperTest {
     }
 
     @Test
-    void getUnidades() {
+    void getUnidadesSon4() {
+        Assertions.assertEquals(4,ListadoHelper.getUnidades(publicacionList).size());
     }
 }
