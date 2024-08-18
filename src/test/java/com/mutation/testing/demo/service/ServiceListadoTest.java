@@ -28,9 +28,9 @@ class ServiceListadoTest {
         ListadoClasificados clasificados = Mockito.mock(ListadoClasificados.class);
         ListadoEmprendimientos emprendimientos = Mockito.mock(ListadoEmprendimientos.class);
         Mockito.when(clasificados.getListado(Mockito.any())).thenCallRealMethod();
-        Mockito.when(clasificados.armarCard(Mockito.any(),Mockito.any())).thenCallRealMethod();
+        Mockito.when(clasificados.armarCard(Mockito.any(),Mockito.any(),Mockito.any())).thenCallRealMethod();
         Mockito.when(emprendimientos.getListado(Mockito.any())).thenCallRealMethod();
-        Mockito.when(emprendimientos.armarCard(Mockito.any(),Mockito.any())).thenCallRealMethod();
+        Mockito.when(emprendimientos.armarCard(Mockito.any(),Mockito.any(),Mockito.any())).thenCallRealMethod();
         ListadoFactory factory = new ListadoFactory(clasificados,emprendimientos);
         this.serviceListado = new ServiceListado(factory);
     }

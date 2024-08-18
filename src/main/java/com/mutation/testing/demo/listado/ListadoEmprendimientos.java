@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component("emprendimientos")
 public class ListadoEmprendimientos implements Listado {
@@ -18,7 +19,7 @@ public class ListadoEmprendimientos implements Listado {
         for(Publicacion p : ds.publicacionList){
             if((p.idTipoDePropiedad().equals(10)) || (List.of(1,2).contains(p.idTipoDePropiedad()) & p.idPublicacionPadre() != null)){
                 String tipoPublicacion = p.idTipoDePropiedad().equals(10) ? "emprendimiento" : "unidad";
-                listado.add(armarCard(p,tipoPublicacion));
+                listado.add(armarCard(p,tipoPublicacion, Optional.empty()));
             }
         }
 
