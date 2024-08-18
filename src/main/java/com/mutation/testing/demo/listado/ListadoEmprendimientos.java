@@ -16,16 +16,22 @@ public class ListadoEmprendimientos implements Listado {
     @Override
     public List<Card> getListado(DataSource ds) {
         List<Card> listado = new ArrayList<>();
-        for(Publicacion p : ds.publicacionList){
-            if(p.idTipoDePropiedad().equals(10)){
-                List<Card> unidades = new ArrayList<>();
-                unidades.add(null);
-                unidades.add(null);
-                unidades.add(null);
-                listado.add(armarCard(p,"emprendimiento", Optional.of(unidades)));
+        List<Publicacion> publicacionList = ds.publicacionList;
+        List<Publicacion> unidades = ListadoHelper.getUnidades(publicacionList);
+        List<Publicacion> emprendimientos = ListadoHelper.getEmprendimientos(publicacionList);
+        for(Publicacion p : emprendimientos){
+              Optional<List<Card>> cardUnidades = getUnidadesDeEmprendimiento(p.anunciante(),unidades);
+              listado.add(armarCard(p,"emprendimiento", cardUnidades));
             }
-        }
-
         return listado;
+    }
+
+    private Optional<List<Card>> getUnidadesDeEmprendimiento(String anunciante, List<Publicacion> unidades) {
+        List<Card> unidadesCard = new ArrayList<>();
+        List<Publicacion> unidadesAnunciante = unidades.stream().filter(publicacion -> publicacion.anunciante().equals(anunciante)).toList();
+        for(Publicacion unidadAnunciante : unidadesAnunciante){
+            unidadesCard.add(armarCard(unidadAnunciante,"unidad",Optional.empty()));
+        }
+        return Optional.of(unidadesCard);
     }
 }
